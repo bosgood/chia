@@ -38,14 +38,25 @@ resource "aws_subnet" "chia" {
   }
 }
 
+resource "aws_key_pair" "laptop" {
+  key_name   = var.ssh_key_name
+  public_key = var.ssh_public_key
+}
+
 resource "aws_instance" "farmer" {
-  # Fedora CoreOS
-  # https://getfedora.org/coreos/download?tab=cloud_launchable&stream=stable
-  ami               = "ami-06af204ec574cc791"
+  # # Fedora CoreOS
+  # # https://getfedora.org/coreos/download?tab=cloud_launchable&stream=stable
+  # ami               = "ami-06af204ec574cc791"
+
+  # Amazon Linux 2018.03
+  # https://aws.amazon.com/amazon-linux-ami/
+  ami = "ami-0ff8a91507f77f867"
+
   availability_zone = var.availability_zone
   instance_type     = "t2.micro"
   user_data         = var.farmer_user_data
   subnet_id         = aws_subnet.chia.id
+  key_name          = aws_key_pair.laptop.key_name
 
   vpc_security_group_ids = [
     aws_security_group.chia_farmer.id,
