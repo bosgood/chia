@@ -1,0 +1,28 @@
+variant: fcos
+version: 1.3.0
+# storage:
+#   filesystems:
+#   - device: /dev/sdf1
+#     format: xfs
+#     path: /mnt/scratch
+#   - device: /dev/sdh1
+#     format: xfs
+#     path: /mnt/plot1
+# systemd:
+#   units:
+#   - name: chia-farmer
+#     enabled: false
+#     contents: |-
+#       [Unit]
+#       Description=Chia farmer
+
+#       [Service]
+#       ExecStart=docker run bosgood/chia
+
+#       [Install]
+#       WantedBy=multi-user.target
+passwd:
+  users:
+  - name: core
+    ssh_authorized_keys:
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWEqYGNnkk0zjzXtmMMHVxrQzKbpuWT6wTjXBrxb78mDAex2EcnUJn5PYcLo0ZKGKMvNR0UcURNImfJZmJMfCWIx+HeYPAi8x0IHMUM9/qcEokQY/gegYCspwamaAGrF+cvvkwXcBARMwz+SsSYAesI1lv3R/VZey9aXe61KdFaRbybKErrxWDiIGIM6ytducSnU02oT9dpmxo+ipxsNLdH9Pkr3EeN1h9nk8QZ3bhl2WehAHQbWaaviVS7P4buvxBu1e6LadoLgaJLGH83+EaUGvb+Ec3DXxmKGPb5YEZmnUNmqI4GhNXS0WFDZ7x/3+mWRsYkGCoK9AxmT1s99e1 bosgood@silverbullet2.lan"
