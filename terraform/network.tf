@@ -18,7 +18,6 @@ resource "aws_subnet" "chia" {
   }
 }
 
-
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
@@ -47,6 +46,33 @@ resource "aws_security_group" "allow_all_outbound" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    project = "chia"
+  }
+}
+
+resource "aws_security_group" "chia_farmer" {
+  name   = "chia_farmer"
+  vpc_id = aws_vpc.chia.id
+
+  tags = {
+    project = "chia"
+  }
+}
+
+resource "aws_security_group" "allow_ssh_chia_farmer" {
+  name        = "allow_ssh_chia_farmer"
+  description = "Allow SSH inbound traffic to chia-farmer"
+  vpc_id      = aws_vpc.chia.id
+
+  ingress {
+    description = "SSH to chia-farmer"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.home_ips
   }
 
   tags = {
