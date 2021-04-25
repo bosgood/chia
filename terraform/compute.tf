@@ -19,7 +19,7 @@ resource "aws_instance" "farmer" {
   key_name          = aws_key_pair.laptop.key_name
 
   vpc_security_group_ids = [
-    # aws_security_group.allow_ssh.id,
+    aws_security_group.allow_ssh.id,
     aws_security_group.allow_all_outbound.id,
   ]
 
