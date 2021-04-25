@@ -20,4 +20,4 @@ RUN python3 -m venv $VIRTUAL_ENV && \
   pip install -e . --extra-index-url https://pypi.chia.net/simple/
 
 COPY ./entrypoint.sh .
-CMD [ "entrypoint.sh" ]
+CMD [ "bash", "/usr/local/chia-blockchain/entrypoint.sh" ]

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # shellcheck disable=SC1091
-. venv/activate
+. venv/bin/activate
 
-chia init
+chia start farmer
