@@ -8,3 +8,8 @@ build-os-image:
 .PHONY: build-docker-image
 build-docker-image:
 	@docker build -t bosgood/chia:dev .
+
+# Use with publish-docker-image
+.PHONY: publish-docker-image
+publish-docker-image:
+	@docker push bosgood/chia:dev
