@@ -12,7 +12,7 @@ variable "ssh_public_key" {
 
 variable "scratch_volume_size_gb" {
   type    = number
-  default = 2048
+  default = 2500
 }
 
 variable "scratch_volume_type" {

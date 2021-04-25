@@ -3,7 +3,7 @@ resource "aws_key_pair" "laptop" {
   public_key = var.ssh_public_key
 }
 
-resource "aws_instance" "farmer_amzn" {
+resource "aws_instance" "farmer" {
   # Amazon Linux 2 HVM
   # https://aws.amazon.com/amazon-linux-2/faqs/
   ami = "ami-0742b4e673072066f"
