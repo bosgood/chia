@@ -18,37 +18,49 @@ resource "aws_subnet" "chia" {
   }
 }
 
-resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
-  description = "Allow SSH inbound traffic"
-  vpc_id      = aws_vpc.chia.id
-
-  ingress {
-    description = "SSH ingress"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.home_ips
-  }
-
-  tags = {
-    project = "chia"
-  }
+resource "aws_internet_gateway" "chia" {
+  vpc_id = "${aws_vpc.chia.id}"
 }
 
-resource "aws_security_group" "allow_all_outbound" {
-  name        = "allow_all_outbound"
-  description = "Allow all outbound traffic"
-  vpc_id      = aws_vpc.chia.id
+resource "aws_route_table" "chia" {
+  vpc_id = "${aws_vpc.chia.id}"
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+resource "aws_main_route_table_association" "chia" {
+  vpc_id         = "${aws_vpc.chia.id}"
+  route_table_id = "${aws_route_table.chia.id}"
+}
+
+resource "aws_route" "chia" {
+  route_table_id         = "${aws_route_table.chia.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.chia.id}"
+}
+
+resource "aws_network_acl" "chia" {
+  vpc_id = "${aws_vpc.chia.id}"
+
+  subnet_ids = [
+    "${aws_subnet.chia.id}",
+    # "${aws_subnet.subnet2.id}",
+    # "${aws_subnet.subnet3.id}",
+  ]
+
+  ingress {
+    from_port  = 0
+    to_port    = 0
+    cidr_block = "0.0.0.0/0"
+    rule_no    = "100"
+    action     = "allow"
+    protocol   = "-1"
   }
 
-  tags = {
-    project = "chia"
+  egress {
+    from_port  = 0
+    to_port    = 0
+    cidr_block = "0.0.0.0/0"
+    rule_no    = "100"
+    action     = "allow"
+    protocol   = "-1"
   }
 }
