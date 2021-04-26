@@ -3,13 +3,13 @@ resource "aws_key_pair" "laptop" {
   public_key = var.ssh_public_key
 }
 
-resource "aws_instance" "farmer" {
-  # Amazon Linux 2 HVM
+resource "aws_instance" "farmer_amzn" {
+  # Amazon Linux 2 HVM x86_64
   # https://aws.amazon.com/amazon-linux-2/faqs/
   ami = "ami-0742b4e673072066f"
 
   availability_zone = var.availability_zone
-  instance_type     = "t2.micro"
+  instance_type     = "t3.medium"
   subnet_id         = aws_subnet.chia.id
   key_name          = aws_key_pair.laptop.key_name
 

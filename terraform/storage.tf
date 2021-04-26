@@ -21,11 +21,11 @@ resource "aws_ebs_volume" "plot1" {
 resource "aws_volume_attachment" "scratch" {
   device_name = "/dev/sdf"
   volume_id   = aws_ebs_volume.scratch.id
-  instance_id = aws_instance.farmer.id
+  instance_id = aws_instance.farmer_amzn.id
 }
 
 resource "aws_volume_attachment" "plot1" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.plot1.id
-  instance_id = aws_instance.farmer.id
+  instance_id = aws_instance.farmer_amzn.id
 }
